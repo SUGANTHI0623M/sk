@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { Booking } from "../models/Booking.js";
+import { User } from "../models/User.js";
 
 const maybeSendBookingMail = async (booking) => {
   if (!process.env.SMTP_HOST || !process.env.NOTIFY_TO_EMAIL) return;
@@ -41,6 +42,9 @@ export const createBooking = async (req, res) => {
       return res.status(409).json({ message: "Selected date/time slot is already booked." });
     }
 
+    const adminUsername = (process.env.ADMIN_USERNAME || "skprobeauty.makeover@gmail.com").toLowerCase();
+    const adminUser = await User.findOne({ username: adminUsername });
+
     const booking = await Booking.create({
       name,
       phone,
@@ -50,6 +54,7 @@ export const createBooking = async (req, res) => {
       date: new Date(date),
       time,
       description,
+      createdBy: adminUser?._id,
     });
 
     await maybeSendBookingMail(booking);

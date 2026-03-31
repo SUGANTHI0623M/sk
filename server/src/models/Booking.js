@@ -10,6 +10,7 @@ const bookingSchema = new mongoose.Schema(
     date: { type: Date, required: true },
     time: { type: String, required: true, trim: true },
     description: { type: String, trim: true, default: "" },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

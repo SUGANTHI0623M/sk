@@ -66,7 +66,7 @@ export const BookingPage = () => {
           ))}
           <div className="grid gap-4 md:grid-cols-2">
             <div className="relative">
-              <Calendar size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold" />
+              <Calendar size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white" />
               <input
                 name="date"
                 type="date"

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Seo } from "../components/Seo.jsx";
@@ -9,6 +10,7 @@ export const AdminLoginPage = () => {
   const [username, setUsername] = useState("skprobeauty.makeover@gmail.com");
   const [password, setPassword] = useState("skprobeauty##2002");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +33,23 @@ export const AdminLoginPage = () => {
       <form onSubmit={handleSubmit} className="w-full rounded-3xl border border-gold/30 bg-black/40 p-7">
         <h1 className="font-display text-3xl text-gold">Admin Login</h1>
         <input className="input mt-5" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <input className="input mt-4" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <div className="relative mt-4">
+          <input
+            className="input pr-10"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gold"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
         <button className="btn-gold mt-6 w-full" disabled={loading}>{loading ? "Signing in..." : "Sign In"}</button>
       </form>
     </section>
