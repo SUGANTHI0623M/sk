@@ -14,7 +14,7 @@ export const ContactPage = () => (
         <div className="service-card">
           <h2 className="font-display text-2xl text-gold">SK Pro Beauty Hub & Makeover Studio</h2>
           <p className="mt-3 text-zinc-300">Kumbalam Main Road, Kattikanapalli, Shoolagiri</p>
-          <p className="mt-2 text-zinc-300">Phone: +91 99999 99999</p>
+          <p className="mt-2 text-zinc-300">Phone: +91 93422 44248</p>
           <p className="mt-2 text-zinc-300">Founder: Kavitha</p>
         </div>
         <iframe

@@ -70,7 +70,7 @@ export const Layout = () => {
       </main>
 
       <a
-        href="https://wa.me/919999999999"
+        href="https://wa.me/919342244248"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-5 right-5 rounded-full bg-green-500 px-4 py-3 text-sm font-semibold text-white shadow-lg"

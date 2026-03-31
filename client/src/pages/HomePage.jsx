@@ -1,15 +1,43 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import heroRight from "../../assets/pc2.jpg";
 import { Seo } from "../components/Seo.jsx";
+import { BookingPage } from "./BookingPage.jsx";
+import { ContactPage } from "./ContactPage.jsx";
+import { ServicesPage } from "./ServicesPage.jsx";
+
+const scrollToId = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 export const HomePage = () => {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const map = {
+      "/services": "services",
+      "/bridal-makeup-shoolagiri": "services",
+      "/hair-styling-shoolagiri": "services",
+      "/booking": "booking",
+      "/contact": "contact",
+    };
+    const id = map[location.pathname];
+    if (id) {
+      setTimeout(() => scrollToId(id), 200);
+    } else if (location.pathname === "/" || location.pathname === "/beauty-parlour-shoolagiri") {
+      setTimeout(() => scrollToId("home"), 200);
+    }
+  }, [location.pathname]);
 
   return (
     <>
@@ -33,37 +61,51 @@ export const HomePage = () => {
           />
         </motion.div>
       )}
-      <section className="relative flex min-h-[calc(100vh-80px)] items-center justify-center overflow-hidden px-4 py-16">
-        <motion.div
-          className="absolute -top-32 right-10 h-64 w-64 rounded-full bg-gold/10 blur-3xl"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5 }}
-        />
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="font-display text-4xl leading-tight text-gold md:text-6xl">
-            Best Beauty Parlour in Shoolagiri
-          </h1>
-          <h2 className="mt-3 text-xl font-semibold text-zinc-200">Bridal Makeup Experts</h2>
-          <p className="mt-5 text-zinc-300">
-            Signature bridal looks, airbrush makeup, luxury hair styling, skincare rituals and spa experiences crafted for
-            Shoolagiri brides at SK Pro Beauty Hub &amp; Makeover Studio.
-          </p>
-          <div className="mt-8 flex justify-center gap-3">
-            <Link to="/booking" className="btn-gold">
-              Book Appointment
-            </Link>
-            <Link to="/services" className="btn-outline">
-              View Services
-            </Link>
-          </div>
-        </motion.div>
+      <section
+        id="home"
+        className="relative flex min-h-[calc(100vh-80px)] items-center justify-center overflow-hidden px-4 py-16"
+      >
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 md:flex-row">
+          <motion.div
+            className="mx-auto max-w-2xl text-center md:text-left"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="typing-title mb-3 text-sm uppercase tracking-[0.25em] text-gold/80">
+              SK Pro Beauty Hub
+            </p>
+            <h1 className="font-display text-4xl leading-tight text-gold md:text-6xl">
+              Best Beauty Parlour in Shoolagiri
+            </h1>
+            <h2 className="mt-3 text-xl font-semibold text-zinc-200">
+              Bridal Makeup Experts
+            </h2>
+            <p className="mt-5 text-zinc-300">
+              Signature bridal looks, airbrush makeup, luxury hair styling, skincare rituals and spa experiences crafted for
+              Shoolagiri brides at SK Pro Beauty Hub &amp; Makeover Studio.
+            </p>
+          </motion.div>
+          <motion.img
+            src={heroRight}
+            alt="Bridal makeup in Shoolagiri"
+            className="h-64 w-44 rounded-3xl object-cover shadow-xl sm:h-72 sm:w-52 md:mt-0"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          />
+        </div>
       </section>
+
+      <div id="services">
+        <ServicesPage />
+      </div>
+      <div id="booking">
+        <BookingPage />
+      </div>
+      <div id="contact">
+        <ContactPage />
+      </div>
     </>
   );
 };
