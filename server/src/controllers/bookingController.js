@@ -1,29 +1,5 @@
-import nodemailer from "nodemailer";
 import { Booking } from "../models/Booking.js";
 import { User } from "../models/User.js";
-
-const maybeSendBookingMail = async (booking) => {
-  if (!process.env.SMTP_HOST || !process.env.NOTIFY_TO_EMAIL) return;
-
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: false,
-    auth: process.env.SMTP_USER
-      ? {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        }
-      : undefined,
-  });
-
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || "no-reply@skprobeauty.com",
-    to: process.env.NOTIFY_TO_EMAIL,
-    subject: "New Booking - SK Pro Beauty Hub",
-    text: `New appointment by ${booking.name}\nService: ${booking.service}\nDate: ${booking.date}\nTime: ${booking.time}\nPhone: ${booking.phone}`,
-  });
-};
 
 export const createBooking = async (req, res) => {
   try {
@@ -57,7 +33,6 @@ export const createBooking = async (req, res) => {
       createdBy: adminUser?._id,
     });
 
-    await maybeSendBookingMail(booking);
     return res.status(201).json({ message: "Booking created successfully.", booking });
   } catch (error) {
     if (error.code === 11000) {
