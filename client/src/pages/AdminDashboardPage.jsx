@@ -70,27 +70,27 @@ export const AdminDashboardPage = () => {
   );
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <section className="mx-auto max-w-6xl px-3 py-8 sm:px-4 sm:py-12">
       <Seo title="Admin Dashboard | SK Pro Beauty Hub" description="Manage salon bookings." keywords="Salon booking admin" />
-      <h1 className="mb-4 text-center font-display text-4xl text-gold">
+      <h1 className="mb-4 text-center font-display text-3xl text-gold sm:text-4xl">
         Admin Dashboard
       </h1>
       <div className="mb-6 flex flex-col items-center justify-center gap-2 md:flex-row">
         <div className="flex flex-1 flex-col items-center justify-center gap-2 md:flex-row">
           <input
-            className="input md:max-w-xs"
+            className="input text-sm md:max-w-xs"
             placeholder="Search by name or phone"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <input
             type="date"
-            className="input md:max-w-xs"
+            className="input text-sm md:max-w-xs"
             value={filterDate}
             onChange={(e) => setFilterDate(e.target.value)}
           />
           <button
-            className="btn-outline text-xs md:text-sm"
+            className="btn-outline px-4 py-2 text-xs md:text-sm"
             onClick={() =>
               setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
             }
@@ -98,7 +98,7 @@ export const AdminDashboardPage = () => {
             {sortOrder === "asc" ? "Sort: Oldest" : "Sort: Latest"}
           </button>
           <button
-            className="btn-outline"
+            className="btn-outline px-4 py-2 text-xs md:text-sm"
             onClick={() => {
               localStorage.removeItem("sk-admin-token");
               navigate("/admin/login");
